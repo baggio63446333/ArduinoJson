@@ -82,7 +82,9 @@ void setup() {
   DeserializationError error = deserializeJson(doc, client);
   if (error) {
     Serial.print(F("deserializeJson() failed: "));
+#if ARDUINOJSON_ENABLE_PROGMEM
     Serial.println(error.f_str());
+#endif
     return;
   }
 

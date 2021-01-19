@@ -171,6 +171,9 @@
 
 #endif  // ARDUINO
 
+#ifdef ARDUINO_ARCH_SPRESENSE
+#define ARDUINOJSON_ENABLE_PROGMEM 0
+#endif
 #ifndef ARDUINOJSON_ENABLE_PROGMEM
 #if defined(PROGMEM) && defined(pgm_read_byte) && defined(pgm_read_dword) && \
     defined(pgm_read_ptr) && defined(pgm_read_float)

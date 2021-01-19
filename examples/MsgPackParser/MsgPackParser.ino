@@ -50,7 +50,9 @@ void setup() {
   // Test if parsing succeeded.
   if (error) {
     Serial.print("deserializeMsgPack() failed: ");
+#if ARDUINOJSON_ENABLE_PROGMEM
     Serial.println(error.f_str());
+#endif
     return;
   }
 

@@ -20,8 +20,9 @@
 // https://arduinojson.org/v6/example/config/
 
 #include <ArduinoJson.h>
-#include <SD.h>
+#include <SDHCI.h>
 #include <SPI.h>
+SDClass SD;
 
 // Our configuration structure.
 //
@@ -54,10 +55,14 @@ void loadConfiguration(const char *filename, Config &config) {
 
   // Copy values from the JsonDocument to the Config
   config.port = doc["port"] | 2731;
+#if 1 // [TBD] strlcpy is not supported
+  strcpy(config.hostname,                  // <- destination
+         doc["hostname"] | "example.com"); // <- source
+#else
   strlcpy(config.hostname,                  // <- destination
           doc["hostname"] | "example.com",  // <- source
           sizeof(config.hostname));         // <- destination's capacity
-
+#endif
   // Close the file (Curiously, File's destructor doesn't close the file)
   file.close();
 }
